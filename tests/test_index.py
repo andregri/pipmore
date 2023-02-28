@@ -10,6 +10,12 @@ class Test_PyVersionFromClassifier(unittest.TestCase):
         actual = index.pyversions_from_classifier(classifiers)
         self.assertEqual(actual, expected)
 
+    def test_empty_classifiers(self):
+        classifiers = []
+        expected = []
+        actual = index.pyversions_from_classifier(classifiers)
+        self.assertEqual(actual, expected)
+
 
 if __name__ == "__main__":
     unittest.main()
