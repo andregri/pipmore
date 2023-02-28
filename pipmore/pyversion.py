@@ -1,4 +1,4 @@
-def pyversions_from_classifier(classifiers):
+def from_classifiers(classifiers):
     """
     Return a list of python versions extracted from classifiers.
     Return an empty list if classifiers are not defined.
