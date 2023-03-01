@@ -17,12 +17,13 @@ jobs:
       - run: pipenv install --dev
       # Use the commit date instead of the current date during the build.
       - run: echo "SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)" >> $GITHUB_ENV
-      - run: pipenv python -m build
+      - run: pipenv run python -m build
       - uses: actions/upload-artifact@v3
         with:
           path: ./dist
 
   create-release:
+    needs: ['build']
     # Upload the sdist, wheels to a GitHub release. They remain
     # available as build artifacts for a while as well.
     runs-on: ubuntu-latest
