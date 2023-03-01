@@ -1,5 +1,7 @@
 import requests
 
+from . import package, pyversion
+
 headers = {"Accept": "application/json"}
 
 
@@ -16,6 +18,24 @@ def releases(index_url, package_name):
         releases = list(r_json["releases"].keys())
 
     return releases
+
+
+def find_max_release(release, max_release, py_version, requires_python=None):
+    """
+    Return the max release that satifies the requires_python constraint.
+    If requires_python is None, don't use py_version.
+    """
+    if not max_release:
+        return release
+
+    if requires_python:
+        min_requires_python = pyversion.minimum_from_requires(requires_python)
+        if py_version >= min_requires_python:
+            return max(max_release, release)
+    else:
+        return max(max_release, release)
+
+    return max_release
 
 
 def get_info(index_url, package_name, release):
