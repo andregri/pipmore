@@ -38,3 +38,22 @@ jobs:
           artifact/*
         env:
           GH_TOKEN: ${{ github.token }}
+
+  publish-pypi:
+    needs: ['build']
+    # Wait for approval before attempting to upload to PyPI. This allows reviewing the
+    # files in the draft release.
+    environment: 'publish'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+      # Try uploading to Test PyPI first, in case something fails.
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
+          packages_dir: artifact/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages_dir: artifact/
