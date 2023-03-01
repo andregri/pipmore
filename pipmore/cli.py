@@ -9,11 +9,11 @@ def cli():
     parser = argparse.ArgumentParser(
         prog="pipmore",
         description="Find the latest package version supported by a specific python version",
-        epilog="https://github.com/andregri/pipmore",
+        epilog="Visit the project at https://github.com/andregri/pipmore",
     )
 
-    parser.add_argument("package_name")
-    parser.add_argument("py_version")
+    parser.add_argument("package_name", help="name of the package")
+    parser.add_argument("py_version", help="required python version")
 
     args = parser.parse_args()
 
