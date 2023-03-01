@@ -22,3 +22,7 @@ classifiers = [
 dependencies = [
     "requests",
 ]
+
+[project.urls]
+"Source Code" = "https://github.com/andregri/pipmore"
+"Issue Tracker" = "https://github.com/andregri/pipmore/issues"
