@@ -1,0 +1,38 @@
+name: Publish
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install pipenv
+        run: pip install pipenv
+      - run: pipenv install --dev
+      # Use the commit date instead of the current date during the build.
+      - run: echo "SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)" >> $GITHUB_ENV
+      - run: pipenv python -m build
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./dist
+
+  create-release:
+    # Upload the sdist, wheels to a GitHub release. They remain
+    # available as build artifacts for a while as well.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v3
+      - name: create release
+        run: >
+          gh release create --draft --repo ${{ github.repository }}
+          --generate-notes ${{ github.ref_name }}
+          artifact/*
+        env:
+          GH_TOKEN: ${{ github.token }}
