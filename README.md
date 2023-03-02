@@ -2,11 +2,16 @@
 
 Find the latest package version supported by a specific python version
 
+## Install
+```bash
+pip install pipmore
+```
+
 ## Usage
 
 `pipmore` needs two arguments: the package name and the python version.
 ```bash
-pipmore <package name> <python version
+pipmore <package name> <python version>
 ```
 
 For instance, to find the latest version of **flask** that can be installed with **Python 3.6**:
