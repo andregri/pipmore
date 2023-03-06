@@ -35,8 +35,10 @@ def minimum_from_requires(requires_python):
     """
     Parse the minimum python version from requires_python info
     """
-    if requires_python[:2] == ">=":
-        return requires_python[2:]
+    conditions = requires_python.split(",")
+    first_condition = conditions[0]
+    if first_condition[:2] == ">=":
+        return first_condition[2:]
 
 
 def minimum_from_combined(requires_python, classifiers):

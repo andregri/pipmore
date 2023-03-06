@@ -31,6 +31,12 @@ class Test_PyVersionFromClassifier(unittest.TestCase):
         actual = pyversion.minimum_from_requires(requires)
         self.assertEqual(actual, expected)
 
+    def test_minimum_pyversion_with_composite_requires(self):
+        requires = ">=3.7,<3.11"
+        expected = "3.7"
+        actual = pyversion.minimum_from_requires(requires)
+        self.assertEqual(actual, expected)
+
     def test_classifier_smaller_than_requires(self):
         classifiers = [
             "Programming Language :: Python :: 3.4",
