@@ -49,3 +49,17 @@ class Test_MaxRelease(unittest.TestCase):
         actual = package.find_max_release(release, max_release, py_version)
 
         self.assertEqual(actual, expected)
+
+    def test_max_release(self):
+        lower = "9.5.3"
+        higher = "23.1.21"
+        expected = "23.1.21"
+
+        actual = package.max_release(lower, higher)
+        self.assertEqual(actual, expected)
+
+        actual = package.max_release(higher, lower)
+        self.assertEqual(actual, expected)
+
+        actual = package.max_release(higher, higher)
+        self.assertEqual(actual, expected)

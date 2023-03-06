@@ -23,6 +23,7 @@ def cli():
     for release in releases:
         pkg = package.Release(base_url, args.package_name, release)
         requires_python = pkg.requires_python()
+        # print(f"{release} - {requires_python}")
         max_release = package.find_max_release(
             release, max_release, args.py_version, requires_python
         )
